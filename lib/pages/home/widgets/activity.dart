@@ -8,7 +8,7 @@ class RecentActivities extends StatelessWidget {
     return Expanded(
       child: Container(
         width: double.infinity,
-        color: Colors.blue,
+        color: Color(0xFF2196F3),
       ),
     );
   }

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CurrentPrograms extends StatelessWidget {
+import '../../../models/fitness_program.dart';
+
+class CurrentPrograms extends StatefulWidget {
   const CurrentPrograms({super.key});
+
+  @override
+  State<CurrentPrograms> createState() => _CurrentProgramsState();
+}
+
+class _CurrentProgramsState extends State<CurrentPrograms> {
+  ProgramType active = fitnessPrograms[0].type;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +35,17 @@ class CurrentPrograms extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 100,
-          child: ListView.builder(
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             scrollDirection: Axis.horizontal,
+            itemCount: fitnessPrograms.length,
             itemBuilder: (context, index) {
-              return Program();
+              return Program(
+                program: fitnessPrograms[index],
+                active: fitnessPrograms[index].type == active,
+              );
             },
+            separatorBuilder: (context, index) => SizedBox(width: 15),
           ),
         )
       ],
@@ -39,7 +54,9 @@ class CurrentPrograms extends StatelessWidget {
 }
 
 class Program extends StatelessWidget {
-  const Program({super.key});
+  final FitnessProgram program;
+  final bool active;
+  const Program({super.key, required this.program, this.active = false});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +66,10 @@ class Program extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
-          colorFilter: ColorFilter.mode(Color(0xff1ebdf8), BlendMode.lighten),
-          image: AssetImage('assets/weights.jpg'),
+          colorFilter: ColorFilter.mode(
+              active ? Color(0xff099ab3) : Colors.white.withOpacity(0.5),
+              BlendMode.softLight),
+          image: program.image,
           fit: BoxFit.cover,
         ),
       ),
@@ -58,23 +77,25 @@ class Program extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: DefaultTextStyle.merge(
         style: TextStyle(
-            color: Colors.white, fontSize: 10, fontWeight: FontWeight.w500),
+            color: active ? Colors.white : Colors.black,
+            fontSize: 10,
+            fontWeight: FontWeight.w500),
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ProgramName'),
+              Text(program.name),
               Row(
                 children: [
-                  Text('cals'),
+                  Text(program.cals),
                   SizedBox(width: 15),
                   Icon(
                     Icons.timer,
                     size: 10,
-                    color: Colors.white,
+                    color: active ? Colors.white : Colors.black,
                   ),
                   SizedBox(width: 5),
-                  Text('time'),
+                  Text(program.time),
                 ],
               )
             ]),
