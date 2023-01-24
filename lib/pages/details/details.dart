@@ -12,6 +12,34 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+            size: 20,
+          ),
+        ),
+        title: Text(
+          'Activity',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.notifications,
+              size: 20,
+            ),
+            
+          )
+        ],
+      ),
       body: Column(
         children: [
           Dates(),

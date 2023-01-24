@@ -84,7 +84,7 @@ class Program extends StatelessWidget {
           image: DecorationImage(
             colorFilter: ColorFilter.mode(
                 active ? Color(0xff099ab3) : Colors.white.withOpacity(0.5),
-                BlendMode.softLight),
+                BlendMode.lighten),
             image: program.image,
             fit: BoxFit.cover,
           ),
